@@ -1,0 +1,269 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference_1.png",
+        "image"
+      ],
+      "title": "Reference Image 1"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [50, 400],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [2],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference_2.png",
+        "image"
+      ],
+      "title": "Reference Image 2 (Optional)"
+    },
+    {
+      "id": 3,
+      "type": "ImageBatch",
+      "pos": [400, 200],
+      "size": {"0": 210, "1": 46},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [3],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "title": "Combine References"
+    },
+    {
+      "id": 4,
+      "type": "LoadReferenceImages",
+      "pos": [650, 200],
+      "size": {"0": 315, "1": 58},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_images",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "links": [4],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadReferenceImages"
+      },
+      "title": "Load Multiple References"
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [50, 750],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [5],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "input_images.png",
+        "image"
+      ],
+      "title": "Input Images/Frames"
+    },
+    {
+      "id": 6,
+      "type": "ExtractFromFootage",
+      "pos": [650, 500],
+      "size": {"0": 400, "1": 280},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "link": 4
+        },
+        {
+          "name": "input_images",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "links": [6],
+          "slot_index": 0
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "links": [7],
+          "slot_index": 1
+        },
+        {
+          "name": "info",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ExtractFromFootage"
+      },
+      "widgets_values": [
+        "images",
+        0.4,
+        64,
+        0.3,
+        1,
+        0,
+        "cpu",
+        "",
+        ""
+      ],
+      "title": "Extract Faces (Image Mode)"
+    },
+    {
+      "id": 7,
+      "type": "SaveImage",
+      "pos": [1100, 500],
+      "size": {"0": 315, "1": 270},
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "extracted_faces"
+      ],
+      "title": "Preview Faces"
+    },
+    {
+      "id": 8,
+      "type": "SaveExtractedFaces",
+      "pos": [1100, 100],
+      "size": {"0": 315, "1": 106},
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "link": 6
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "save_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveExtractedFaces"
+      },
+      "widgets_values": [
+        "output/extracted",
+        "face"
+      ],
+      "title": "Save to Disk"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 3, 1, "IMAGE"],
+    [3, 3, 0, 4, 0, "IMAGE"],
+    [4, 4, 0, 6, 0, "FACE_REFERENCE"],
+    [5, 5, 0, 6, 1, "IMAGE"],
+    [6, 6, 0, 7, 0, "IMAGE"],
+    [6, 6, 0, 8, 0, "IMAGE"],
+    [7, 6, 1, 8, 1, "MASK"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

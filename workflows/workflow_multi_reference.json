@@ -1,0 +1,206 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference_young_1.png",
+        "image"
+      ],
+      "title": "Reference Image 1"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [50, 400],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [2],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference_young_2.png",
+        "image"
+      ],
+      "title": "Reference Image 2 (Optional)"
+    },
+    {
+      "id": 3,
+      "type": "LoadReferenceImage",
+      "pos": [400, 200],
+      "size": {"0": 315, "1": 58},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_images",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "links": [4],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadReferenceImage"
+      },
+      "title": "Load Reference Face(s)"
+    },
+    {
+      "id": 4,
+      "type": "BatchExtractFromFootage",
+      "pos": [750, 50],
+      "size": {"0": 315, "1": 238},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "link": 4
+        },
+        {
+          "name": "input_images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "links": [5, 6],
+          "slot_index": 0
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "links": [7],
+          "slot_index": 1
+        },
+        {
+          "name": "stats",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BatchExtractFromFootage"
+      },
+      "widgets_values": [
+        "video_file",
+        0.4,
+        3,
+        0,
+        "cpu",
+        "/path/to/your/video.mp4"
+      ],
+      "title": "Extract from Video or Images"
+    },
+    {
+      "id": 5,
+      "type": "SaveExtractedFaces",
+      "pos": [1100, 50],
+      "size": {"0": 315, "1": 106},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "link": 5
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "save_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveExtractedFaces"
+      },
+      "widgets_values": [
+        "output/extracted",
+        "face"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "SaveImage",
+      "pos": [1100, 250],
+      "size": {"0": 315, "1": 270},
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "preview_faces"
+      ],
+      "title": "Preview Extracted Faces"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 3, 0, "IMAGE"],
+    [3, 3, 0, 4, 0, "FACE_REFERENCE"],
+    [4, 3, 0, 4, 0, "FACE_REFERENCE"],
+    [5, 4, 0, 5, 0, "IMAGE"],
+    [6, 4, 0, 6, 0, "IMAGE"],
+    [7, 4, 1, 5, 1, "MASK"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

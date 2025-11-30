@@ -1,0 +1,174 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 50],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [1],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference_young.png",
+        "image"
+      ],
+      "title": "Load Reference Face"
+    },
+    {
+      "id": 2,
+      "type": "LoadReferenceImage",
+      "pos": [400, 50],
+      "size": {"0": 315, "1": 58},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference_image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "links": [2],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadReferenceImage"
+      },
+      "title": "Set Reference"
+    },
+    {
+      "id": 3,
+      "type": "BatchExtractFromVideo",
+      "pos": [750, 50],
+      "size": {"0": 315, "1": 178},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "reference",
+          "type": "FACE_REFERENCE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "links": [3, 4],
+          "slot_index": 0
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "links": [5],
+          "slot_index": 1
+        },
+        {
+          "name": "stats",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BatchExtractFromVideo"
+      },
+      "widgets_values": [
+        "/path/to/your/video.mp4",
+        0.4,
+        3,
+        0,
+        "cpu"
+      ],
+      "title": "Extract from Video"
+    },
+    {
+      "id": 4,
+      "type": "SaveExtractedFaces",
+      "pos": [1100, 50],
+      "size": {"0": 315, "1": 106},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "faces",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "save_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveExtractedFaces"
+      },
+      "widgets_values": [
+        "output/video_extraction",
+        "frame"
+      ],
+      "title": "Save All Faces"
+    },
+    {
+      "id": 5,
+      "type": "SaveImage",
+      "pos": [1100, 300],
+      "size": {"0": 315, "1": 270},
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "preview_faces"
+      ],
+      "title": "Preview Faces"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "IMAGE"],
+    [2, 2, 0, 3, 0, "FACE_REFERENCE"],
+    [3, 3, 0, 4, 0, "IMAGE"],
+    [4, 3, 0, 5, 0, "IMAGE"],
+    [5, 3, 1, 4, 1, "MASK"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
