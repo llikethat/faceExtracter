@@ -1,6 +1,6 @@
 {
-  "last_node_id": 6,
-  "last_link_id": 5,
+  "last_node_id": 7,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 1,
@@ -20,7 +20,7 @@
     },
     {
       "id": 2,
-      "type": "DFLReferenceEmbedding",
+      "type": "FaceReferenceEmbedding",
       "pos": [350, 100],
       "size": {"0": 300, "1": 82},
       "flags": {},
@@ -33,13 +33,14 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "links": [2], "slot_index": 0}
       ],
       "properties": {},
-      "widgets_values": ["insightface", 0.5]
+      "widgets_values": ["mediapipe", 0.5],
+      "title": "Create Reference Embedding"
     },
     {
       "id": 3,
-      "type": "DFLFaceExtractor",
+      "type": "FaceExtractor",
       "pos": [700, 50],
-      "size": {"0": 400, "1": 420},
+      "size": {"0": 400, "1": 450},
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -63,17 +64,17 @@
         -1,
         "streaming",
         75.0,
-        "dfl_extract",
+        "face_extract",
         true,
-        "insightface"
+        "mediapipe"
       ],
-      "title": "Extract Faces from Video"
+      "title": "Extract Faces"
     },
     {
       "id": 4,
       "type": "PreviewImage",
       "pos": [1150, 50],
-      "size": {"0": 300, "1": 300},
+      "size": {"0": 280, "1": 280},
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -81,13 +82,13 @@
         {"name": "images", "type": "IMAGE", "link": 5}
       ],
       "properties": {},
-      "title": "Preview Extracted Faces"
+      "title": "Preview (256x256)"
     },
     {
       "id": 5,
       "type": "ShowText|pysssss",
-      "pos": [1150, 400],
-      "size": {"0": 300, "1": 100},
+      "pos": [1150, 370],
+      "size": {"0": 280, "1": 100},
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -101,17 +102,32 @@
     {
       "id": 6,
       "type": "Note",
-      "pos": [50, 400],
-      "size": {"0": 600, "1": 250},
+      "pos": [50, 420],
+      "size": {"0": 600, "1": 280},
       "flags": {},
       "order": 5,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "BASIC VIDEO EXTRACTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n✓ NO VHS_LoadVideo needed!\n✓ Provide video path directly to the extractor\n✓ Works with videos of ANY length (streaming mode)\n✓ Memory-efficient: ~500MB RAM regardless of video length\n\nSTEPS:\n1. Load a reference image of your target character\n2. Enter the full path to your video file\n3. Adjust similarity_threshold (0.6 is good default)\n4. Run - faces saved to ComfyUI/output/dfl_extract_001/\n\nPROCESSING MODES:\n• streaming (default): One frame at a time - lowest memory\n• chunked: Batch processing - faster but uses more RAM"
+        "BASIC FACE EXTRACTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n✓ Direct video path - no VHS_LoadVideo needed\n✓ Streaming mode - works with ANY video length\n✓ Aspect ratio preserved - no squashing\n✓ GPU memory flushed automatically\n\nBACKEND OPTIONS:\n• insightface - Best quality, NON-COMMERCIAL ONLY!\n• mediapipe - Good quality, Commercial OK ✓\n• opencv_cascade - Basic, Commercial OK ✓\n\n⚠️  For commercial projects, use mediapipe!\n\nSTEPS:\n1. Load reference face image\n2. Enter video path (full path to file)\n3. Choose detection_backend based on license needs\n4. Run - faces saved to ComfyUI/output/face_extract_001/"
       ],
       "color": "#432",
       "bgcolor": "#653"
+    },
+    {
+      "id": 7,
+      "type": "Note",
+      "pos": [1150, 500],
+      "size": {"0": 280, "1": 150},
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "properties": {},
+      "widgets_values": [
+        "MEMORY OPTIMIZATION\n━━━━━━━━━━━━━━━━━━━━━━\n\n• Preview: 256x256 (reduced)\n• Streaming: ~500MB RAM\n• GPU flushed every 500 frames\n• Aspect ratio preserved"
+      ],
+      "color": "#234",
+      "bgcolor": "#345"
     }
   ],
   "links": [
@@ -122,9 +138,9 @@
     [5, 3, 2, 4, 0, "IMAGE"]
   ],
   "groups": [
-    {"title": "1. Reference Face", "bounding": [40, 0, 620, 380], "color": "#3f789e"},
-    {"title": "2. Extract from Video (Direct Path)", "bounding": [680, 0, 450, 500], "color": "#27ae60"},
-    {"title": "3. Results", "bounding": [1130, 0, 340, 530], "color": "#e67e22"}
+    {"title": "1. Reference", "bounding": [40, 0, 620, 400], "color": "#3f789e"},
+    {"title": "2. Extract", "bounding": [680, 0, 450, 530], "color": "#27ae60"},
+    {"title": "3. Output", "bounding": [1130, 0, 320, 680], "color": "#e67e22"}
   ],
   "config": {},
   "extra": {},

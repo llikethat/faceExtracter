@@ -1,5 +1,5 @@
 {
-  "last_node_id": 8,
+  "last_node_id": 9,
   "last_link_id": 8,
   "nodes": [
     {
@@ -15,7 +15,7 @@
         {"name": "MASK", "type": "MASK", "links": null}
       ],
       "properties": {},
-      "widgets_values": ["reference_face.png"],
+      "widgets_values": ["reference.png"],
       "title": "Reference Image"
     },
     {
@@ -31,8 +31,8 @@
         {"name": "MASK", "type": "MASK", "links": null}
       ],
       "properties": {},
-      "widgets_values": ["test_same_person.png"],
-      "title": "Test: SAME Person ✓",
+      "widgets_values": ["same_person.png"],
+      "title": "SAME Person ✓",
       "color": "#232",
       "bgcolor": "#353"
     },
@@ -49,14 +49,14 @@
         {"name": "MASK", "type": "MASK", "links": null}
       ],
       "properties": {},
-      "widgets_values": ["test_different_person.png"],
-      "title": "Test: DIFFERENT Person ✗",
+      "widgets_values": ["different_person.png"],
+      "title": "DIFFERENT Person ✗",
       "color": "#322",
       "bgcolor": "#533"
     },
     {
       "id": 4,
-      "type": "DFLFaceMatcher",
+      "type": "FaceMatcher",
       "pos": [330, 150],
       "size": {"0": 280, "1": 82},
       "flags": {},
@@ -71,12 +71,12 @@
         {"name": "match_info", "type": "STRING", "links": [5], "slot_index": 1}
       ],
       "properties": {},
-      "widgets_values": ["insightface"],
-      "title": "Compare: Same Person"
+      "widgets_values": ["mediapipe"],
+      "title": "Compare: Same"
     },
     {
       "id": 5,
-      "type": "DFLFaceMatcher",
+      "type": "FaceMatcher",
       "pos": [330, 480],
       "size": {"0": 280, "1": 82},
       "flags": {},
@@ -91,8 +91,8 @@
         {"name": "match_info", "type": "STRING", "links": [6], "slot_index": 1}
       ],
       "properties": {},
-      "widgets_values": ["insightface"],
-      "title": "Compare: Different Person"
+      "widgets_values": ["mediapipe"],
+      "title": "Compare: Different"
     },
     {
       "id": 6,
@@ -138,7 +138,7 @@
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "THRESHOLD SELECTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nChoose a value BETWEEN the two scores:\n\nExample: Same=0.75, Different=0.32\n→ Use threshold: 0.5 to 0.6\n\nThe bigger the gap, the easier to tune!"
+        "CHOOSE THRESHOLD BETWEEN SCORES\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nExample: Same=0.78, Different=0.42\n→ Use threshold: 0.55 to 0.65\n\nThe bigger the gap, easier to tune!"
       ],
       "color": "#234",
       "bgcolor": "#345"
@@ -147,13 +147,13 @@
       "id": 9,
       "type": "Note",
       "pos": [50, 1030],
-      "size": {"0": 500, "1": 150},
+      "size": {"0": 500, "1": 180},
       "flags": {},
       "order": 8,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "THRESHOLD GUIDELINES\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n0.7+     Very strict - may miss valid faces\n0.55-0.65  ★ RECOMMENDED - good balance\n0.45-0.55  More inclusive - may get some false matches\n< 0.4    Too loose - will match wrong people"
+        "THRESHOLD GUIDE BY BACKEND\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\ninsightface (NON-COMMERCIAL):\n  Same: 0.65-0.85 | Different: 0.20-0.40 | Use: 0.55-0.65\n\nmediapipe (Commercial OK):\n  Same: 0.70-0.90 | Different: 0.40-0.60 | Use: 0.65-0.75\n\nopencv_cascade (Commercial OK):\n  Same: 0.75-0.95 | Different: 0.50-0.70 | Use: 0.70-0.80"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -169,8 +169,8 @@
   ],
   "groups": [
     {"title": "Test Images", "bounding": [40, 0, 260, 1010], "color": "#3f789e"},
-    {"title": "Same Person Comparison", "bounding": [310, 100, 730, 150], "color": "#27ae60"},
-    {"title": "Different Person Comparison", "bounding": [310, 430, 730, 150], "color": "#c0392b"}
+    {"title": "Same Person", "bounding": [310, 100, 730, 150], "color": "#27ae60"},
+    {"title": "Different Person", "bounding": [310, 430, 730, 150], "color": "#c0392b"}
   ],
   "config": {},
   "extra": {},

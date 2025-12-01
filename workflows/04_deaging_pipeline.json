@@ -15,14 +15,14 @@
         {"name": "MASK", "type": "MASK", "links": null}
       ],
       "properties": {},
-      "widgets_values": ["young_actor_reference.png"],
-      "title": "Young Character Ref",
+      "widgets_values": ["young_ref.png"],
+      "title": "Young Ref",
       "color": "#223",
       "bgcolor": "#446"
     },
     {
       "id": 2,
-      "type": "DFLReferenceEmbedding",
+      "type": "FaceReferenceEmbedding",
       "pos": [300, 100],
       "size": {"0": 280, "1": 82},
       "flags": {},
@@ -35,15 +35,15 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "links": [2], "slot_index": 0}
       ],
       "properties": {},
-      "widgets_values": ["insightface", 0.5],
+      "widgets_values": ["mediapipe", 0.5],
       "color": "#223",
       "bgcolor": "#446"
     },
     {
       "id": 3,
-      "type": "DFLFaceExtractor",
+      "type": "FaceExtractor",
       "pos": [630, 50],
-      "size": {"0": 380, "1": 400},
+      "size": {"0": 380, "1": 430},
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -51,13 +51,13 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "link": 2}
       ],
       "outputs": [
-        {"name": "output_path", "type": "STRING", "links": [3], "slot_index": 0},
+        {"name": "output_path", "type": "STRING", "links": null, "slot_index": 0},
         {"name": "extracted_count", "type": "INT", "links": null, "slot_index": 1},
         {"name": "preview_grid", "type": "IMAGE", "links": [4], "slot_index": 2}
       ],
       "properties": {},
       "widgets_values": [
-        "/movies/young_actor_film1.mp4",
+        "/movies/young_actor.mp4",
         0.6,
         0.4,
         512,
@@ -69,9 +69,9 @@
         75.0,
         "data_src",
         true,
-        "insightface"
+        "mediapipe"
       ],
-      "title": "Extract SOURCE (Young ~10K faces)",
+      "title": "SOURCE (Young ~10K faces)",
       "color": "#223",
       "bgcolor": "#446"
     },
@@ -79,7 +79,7 @@
       "id": 4,
       "type": "PreviewImage",
       "pos": [1060, 50],
-      "size": {"0": 250, "1": 250},
+      "size": {"0": 256, "1": 256},
       "flags": {},
       "order": 3,
       "mode": 0,
@@ -104,14 +104,14 @@
         {"name": "MASK", "type": "MASK", "links": null}
       ],
       "properties": {},
-      "widgets_values": ["old_actor_reference.png"],
-      "title": "Old Character Ref",
+      "widgets_values": ["old_ref.png"],
+      "title": "Old Ref",
       "color": "#322",
       "bgcolor": "#644"
     },
     {
       "id": 6,
-      "type": "DFLReferenceEmbedding",
+      "type": "FaceReferenceEmbedding",
       "pos": [300, 570],
       "size": {"0": 280, "1": 82},
       "flags": {},
@@ -124,15 +124,15 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "links": [6], "slot_index": 0}
       ],
       "properties": {},
-      "widgets_values": ["insightface", 0.5],
+      "widgets_values": ["mediapipe", 0.5],
       "color": "#322",
       "bgcolor": "#644"
     },
     {
       "id": 7,
-      "type": "DFLFaceExtractor",
+      "type": "FaceExtractor",
       "pos": [630, 520],
-      "size": {"0": 380, "1": 400},
+      "size": {"0": 380, "1": 430},
       "flags": {},
       "order": 6,
       "mode": 0,
@@ -140,13 +140,13 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "link": 6}
       ],
       "outputs": [
-        {"name": "output_path", "type": "STRING", "links": [7], "slot_index": 0},
+        {"name": "output_path", "type": "STRING", "links": null, "slot_index": 0},
         {"name": "extracted_count", "type": "INT", "links": null, "slot_index": 1},
         {"name": "preview_grid", "type": "IMAGE", "links": [8], "slot_index": 2}
       ],
       "properties": {},
       "widgets_values": [
-        "/videos/target_video_to_deage.mp4",
+        "/videos/target_to_deage.mp4",
         0.6,
         0.4,
         512,
@@ -158,9 +158,9 @@
         75.0,
         "data_dst",
         true,
-        "insightface"
+        "mediapipe"
       ],
-      "title": "Extract DESTINATION (Old Character)",
+      "title": "DESTINATION (Old)",
       "color": "#322",
       "bgcolor": "#644"
     },
@@ -168,7 +168,7 @@
       "id": 8,
       "type": "PreviewImage",
       "pos": [1060, 520],
-      "size": {"0": 250, "1": 250},
+      "size": {"0": 256, "1": 256},
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -176,7 +176,7 @@
         {"name": "images", "type": "IMAGE", "link": 8}
       ],
       "properties": {},
-      "title": "Destination Preview",
+      "title": "Dest Preview",
       "color": "#322",
       "bgcolor": "#644"
     },
@@ -184,13 +184,13 @@
       "id": 9,
       "type": "Note",
       "pos": [1350, 50],
-      "size": {"0": 350, "1": 450},
+      "size": {"0": 320, "1": 420},
       "flags": {},
       "order": 8,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "DE-AGING PIPELINE\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 1: EXTRACTION (This Workflow)\n\n🔵 SOURCE (Blue) - Young Character\n• From movies where actor was younger\n• Need ~10,000+ faces\n• frame_skip: 2-3 (capture variety)\n• Output: data_src_001/\n\n🔴 DESTINATION (Red) - Old Character\n• From target video to de-age\n• frame_skip: 1 (all frames)\n• Output: data_dst_001/\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 2: Copy to DFL workspace\n\ncp output/data_src_001/aligned/* \\\n   workspace/data_src/aligned/\n\ncp output/data_dst_001/aligned/* \\\n   workspace/data_dst/aligned/\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 3: Train SAEHD in DeepFaceLab\n\nSTEP 4: Merge"
+        "DE-AGING PIPELINE\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 1: EXTRACTION\n\n🔵 SOURCE (Blue)\n• Young character faces\n• From older movies\n• Need ~10,000+ faces\n• frame_skip: 2-3\n• Output: data_src_001/\n\n🔴 DESTINATION (Red)\n• Old character to de-age\n• Target video frames\n• frame_skip: 1 (all)\n• Output: data_dst_001/\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 2: COPY TO DFL\n\ncp output/data_src_*/aligned/* \\\n   workspace/data_src/aligned/\n\ncp output/data_dst_*/aligned/* \\\n   workspace/data_dst/aligned/\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nSTEP 3: Train SAEHD\nSTEP 4: Merge"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -198,14 +198,14 @@
     {
       "id": 10,
       "type": "Note",
-      "pos": [1350, 550],
-      "size": {"0": 350, "1": 200},
+      "pos": [1350, 520],
+      "size": {"0": 320, "1": 200},
       "flags": {},
       "order": 9,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "MEMORY-EFFICIENT PROCESSING\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n✓ Uses streaming mode - ~500MB RAM\n✓ Can process 2-hour movies\n✓ No VHS_LoadVideo needed\n✓ Each run creates new folder:\n   data_src_001, data_src_002, etc.\n\nFor multiple source movies, run\nextraction separately then merge\nall aligned folders together."
+        "OPTIMIZATIONS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n✓ Streaming: ~500MB RAM\n✓ Aspect ratio preserved\n✓ GPU flushed per chunk\n✓ Commercial-safe backend\n\nFor multiple source films,\nrun extraction separately\nthen merge aligned folders."
       ],
       "color": "#234",
       "bgcolor": "#345"
@@ -214,16 +214,14 @@
   "links": [
     [1, 1, 0, 2, 0, "IMAGE"],
     [2, 2, 0, 3, 0, "FACE_EMBEDDING"],
-    [3, 3, 0, null, null, "STRING"],
     [4, 3, 2, 4, 0, "IMAGE"],
     [5, 5, 0, 6, 0, "IMAGE"],
     [6, 6, 0, 7, 0, "FACE_EMBEDDING"],
-    [7, 7, 0, null, null, "STRING"],
     [8, 7, 2, 8, 0, "IMAGE"]
   ],
   "groups": [
-    {"title": "SOURCE: Young Character (Blue)", "bounding": [40, 0, 1290, 490], "color": "#3f789e"},
-    {"title": "DESTINATION: Old Character (Red)", "bounding": [40, 500, 1290, 450], "color": "#8e4444"}
+    {"title": "SOURCE: Young (Blue)", "bounding": [40, 0, 1290, 490], "color": "#3f789e"},
+    {"title": "DESTINATION: Old (Red)", "bounding": [40, 500, 1290, 470], "color": "#8e4444"}
   ],
   "config": {},
   "extra": {},

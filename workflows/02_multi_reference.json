@@ -16,7 +16,7 @@
       ],
       "properties": {},
       "widgets_values": ["ref_front.png"],
-      "title": "Ref 1: Front View"
+      "title": "Ref 1: Front"
     },
     {
       "id": 2,
@@ -32,7 +32,7 @@
       ],
       "properties": {},
       "widgets_values": ["ref_angle.png"],
-      "title": "Ref 2: Side Angle"
+      "title": "Ref 2: Angle"
     },
     {
       "id": 3,
@@ -83,11 +83,11 @@
         {"name": "IMAGE", "type": "IMAGE", "links": [5], "slot_index": 0}
       ],
       "properties": {},
-      "title": "Combine All References"
+      "title": "Batch All"
     },
     {
       "id": 6,
-      "type": "DFLReferenceEmbedding",
+      "type": "FaceReferenceEmbedding",
       "pos": [510, 180],
       "size": {"0": 300, "1": 82},
       "flags": {},
@@ -100,14 +100,14 @@
         {"name": "reference_embedding", "type": "FACE_EMBEDDING", "links": [6], "slot_index": 0}
       ],
       "properties": {},
-      "widgets_values": ["insightface", 0.5],
-      "title": "Averaged Embedding (3 faces)"
+      "widgets_values": ["mediapipe", 0.5],
+      "title": "Averaged Embedding"
     },
     {
       "id": 7,
-      "type": "DFLFaceExtractor",
+      "type": "FaceExtractor",
       "pos": [860, 50],
-      "size": {"0": 380, "1": 420},
+      "size": {"0": 380, "1": 450},
       "flags": {},
       "order": 6,
       "mode": 0,
@@ -121,7 +121,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        "/path/to/your/movie.mp4",
+        "/path/to/movie.mp4",
         0.55,
         0.4,
         512,
@@ -131,17 +131,17 @@
         -1,
         "streaming",
         75.0,
-        "multi_ref_extract",
+        "multi_ref",
         true,
-        "insightface"
+        "mediapipe"
       ],
-      "title": "Extract with Multi-Reference"
+      "title": "Extract with Multi-Ref"
     },
     {
       "id": 8,
       "type": "PreviewImage",
       "pos": [1290, 50],
-      "size": {"0": 280, "1": 280},
+      "size": {"0": 256, "1": 256},
       "flags": {},
       "order": 7,
       "mode": 0,
@@ -153,30 +153,15 @@
     },
     {
       "id": 9,
-      "type": "ShowText|pysssss",
-      "pos": [1290, 370],
-      "size": {"0": 280, "1": 80},
+      "type": "Note",
+      "pos": [50, 750],
+      "size": {"0": 500, "1": 150},
       "flags": {},
       "order": 8,
       "mode": 0,
-      "inputs": [
-        {"name": "text", "type": "STRING", "link": 7, "widget": {"name": "text"}}
-      ],
-      "properties": {},
-      "widgets_values": [""],
-      "title": "Output"
-    },
-    {
-      "id": 10,
-      "type": "Note",
-      "pos": [50, 750],
-      "size": {"0": 550, "1": 180},
-      "flags": {},
-      "order": 9,
-      "mode": 0,
       "properties": {},
       "widgets_values": [
-        "MULTI-REFERENCE EXTRACTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nUsing 3+ reference images creates a more robust averaged\nembedding that handles variations in:\n• Face angle (front, side, 3/4)\n• Expressions (neutral, smile, talking)\n• Lighting conditions\n\nBENEFIT: Can use LOWER similarity threshold (0.5-0.55)\nwhile maintaining accuracy. More faces extracted!"
+        "MULTI-REFERENCE EXTRACTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nUsing 3+ reference images creates a more robust embedding:\n• Different angles (front, side, 3/4)\n• Different expressions (neutral, smile)\n• Different lighting\n\nBENEFIT: Can use LOWER threshold while maintaining accuracy!"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -189,12 +174,12 @@
     [4, 4, 0, 5, 0, "IMAGE"],
     [5, 5, 0, 6, 0, "IMAGE"],
     [6, 6, 0, 7, 0, "FACE_EMBEDDING"],
-    [7, 7, 0, 9, 0, "STRING"],
+    [7, 7, 0, null, null, "STRING"],
     [8, 7, 2, 8, 0, "IMAGE"]
   ],
   "groups": [
-    {"title": "Multiple Reference Images", "bounding": [40, 0, 780, 740], "color": "#3f789e"},
-    {"title": "Extract", "bounding": [840, 0, 430, 500], "color": "#27ae60"}
+    {"title": "Multiple References", "bounding": [40, 0, 780, 740], "color": "#3f789e"},
+    {"title": "Extract", "bounding": [840, 0, 430, 530], "color": "#27ae60"}
   ],
   "config": {},
   "extra": {},
