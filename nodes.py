@@ -528,7 +528,8 @@ class ChunkedVideoProcessor:
         memory_threshold_percent: float = 75.0,
         frame_skip: int = 1,
         start_frame: int = 0,
-        end_frame: int = -1
+        end_frame: int = -1,
+        manual_chunk_size: int = 0  # 0 = auto-calculate
     ):
         self.video_path = video_path
         self.memory_threshold = memory_threshold_percent
@@ -538,19 +539,23 @@ class ChunkedVideoProcessor:
         self.video_info = VideoInfo(video_path)
         self.end_frame = end_frame if end_frame > 0 else self.video_info.total_frames
         
-        self.chunk_size = calculate_safe_chunk_size(
-            self.video_info.width,
-            self.video_info.height,
-            memory_threshold_percent
-        )
+        # Use manual chunk size if provided, otherwise auto-calculate
+        if manual_chunk_size > 0:
+            self.chunk_size = manual_chunk_size
+            print(f"[Face Extractor] Using manual chunk size: {self.chunk_size}")
+        else:
+            self.chunk_size = calculate_safe_chunk_size(
+                self.video_info.width,
+                self.video_info.height,
+                memory_threshold_percent
+            )
+            print(f"[Face Extractor] Auto chunk size: {self.chunk_size} (based on {memory_threshold_percent}% memory threshold)")
         
         self.frames_to_process = list(range(self.start_frame, self.end_frame, self.frame_skip))
         self.total_frames_to_process = len(self.frames_to_process)
         
         print(f"[Face Extractor] {self.video_info}")
         print(f"[Face Extractor] Processing {self.total_frames_to_process} frames (skip={frame_skip})")
-        print(f"[Face Extractor] Chunk size: {self.chunk_size} frames")
-        print(f"[Face Extractor] Memory threshold: {memory_threshold_percent}%")
     
     def process_chunks(
         self,
@@ -811,6 +816,7 @@ class FaceExtractor:
                 "end_frame": ("INT", {"default": -1, "min": -1, "max": 9999999, "step": 1}),
                 "processing_mode": (["streaming", "chunked"], {"default": "streaming"}),
                 "memory_threshold_percent": ("FLOAT", {"default": 75.0, "min": 30.0, "max": 90.0, "step": 5.0}),
+                "chunk_size": ("INT", {"default": 0, "min": 0, "max": 10000, "step": 50}),  # 0 = auto
                 "output_prefix": ("STRING", {"default": "face_extract", "multiline": False}),
                 "save_debug_info": ("BOOLEAN", {"default": True}),
                 "detection_backend": (backends, {"default": backends[0]}),
@@ -838,6 +844,7 @@ class FaceExtractor:
         end_frame: int = -1,
         processing_mode: str = "streaming",
         memory_threshold_percent: float = 75.0,
+        chunk_size: int = 0,  # 0 = auto-calculate based on memory
         output_prefix: str = "face_extract",
         save_debug_info: bool = True,
         detection_backend: str = "insightface"
@@ -941,7 +948,8 @@ class FaceExtractor:
                 
             else:  # chunked mode
                 processor = ChunkedVideoProcessor(
-                    video_path, memory_threshold_percent, frame_skip, start_frame, end_frame
+                    video_path, memory_threshold_percent, frame_skip, start_frame, end_frame,
+                    manual_chunk_size=chunk_size
                 )
                 pbar = comfy.utils.ProgressBar(processor.total_frames_to_process)
                 
@@ -962,10 +970,16 @@ class FaceExtractor:
             print(f"[Face Extractor] Processing {num_frames} images")
             print(f"[Face Extractor] ⚠️  For large videos, use video_path instead!")
             
-            batch_size = calculate_safe_chunk_size(
-                images.shape[2], images.shape[1],
-                memory_threshold_percent, min_chunk=1, max_chunk=100
-            )
+            # Use manual chunk size if provided, otherwise auto-calculate
+            if chunk_size > 0:
+                batch_size = chunk_size
+                print(f"[Face Extractor] Using manual chunk size: {batch_size}")
+            else:
+                batch_size = calculate_safe_chunk_size(
+                    images.shape[2], images.shape[1],
+                    memory_threshold_percent, min_chunk=1, max_chunk=100
+                )
+                print(f"[Face Extractor] Auto chunk size: {batch_size}")
             
             pbar = comfy.utils.ProgressBar(num_frames)
             
@@ -1043,7 +1057,9 @@ class FaceExtractor:
                     'output_size': output_size,
                     'max_faces_per_frame': max_faces_per_frame,
                     'frame_skip': frame_skip,
+                    'processing_mode': processing_mode if use_video_path else "image_batch",
                     'memory_threshold_percent': memory_threshold_percent,
+                    'chunk_size': chunk_size if chunk_size > 0 else "auto",
                     'aspect_ratio_preserved': True
                 },
                 'extractions': extraction_log

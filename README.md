@@ -103,6 +103,7 @@ Main extraction node with built-in video loading.
 | frame_skip | Process every Nth frame (1 default) |
 | processing_mode | "streaming" or "chunked" |
 | memory_threshold_percent | RAM limit for chunked mode (75% default) |
+| **chunk_size** | **Frames per chunk (0 = auto-calculate)** |
 | detection_backend | Choose based on license needs |
 
 ### Face Matcher
@@ -119,10 +120,22 @@ Compare two faces for threshold tuning.
 - Best for: Large videos, limited RAM
 
 ### Chunked
-- Batches based on available RAM  
+- Batches of frames processed together
 - GPU flushed after EVERY chunk
 - Faster than streaming
 - Best for: When you have RAM to spare
+
+**Chunk Size Configuration:**
+- `chunk_size = 0` (default): Auto-calculate based on available memory and `memory_threshold_percent`
+- `chunk_size = 100`: Process exactly 100 frames per chunk
+- `chunk_size = 500`: Process 500 frames per chunk (faster, uses more RAM)
+
+Console output shows which mode is used:
+```
+[Face Extractor] Auto chunk size: 287 (based on 75.0% memory threshold)
+# or
+[Face Extractor] Using manual chunk size: 500
+```
 
 ---
 
