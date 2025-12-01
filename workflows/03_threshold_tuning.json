@@ -32,7 +32,9 @@
       ],
       "properties": {},
       "widgets_values": ["test_same_person.png"],
-      "title": "Test: SAME Person"
+      "title": "Test: SAME Person ✓",
+      "color": "#232",
+      "bgcolor": "#353"
     },
     {
       "id": 3,
@@ -48,12 +50,14 @@
       ],
       "properties": {},
       "widgets_values": ["test_different_person.png"],
-      "title": "Test: DIFFERENT Person"
+      "title": "Test: DIFFERENT Person ✗",
+      "color": "#322",
+      "bgcolor": "#533"
     },
     {
       "id": 4,
       "type": "DFLFaceMatcher",
-      "pos": [350, 150],
+      "pos": [330, 150],
       "size": {"0": 280, "1": 82},
       "flags": {},
       "order": 3,
@@ -73,7 +77,7 @@
     {
       "id": 5,
       "type": "DFLFaceMatcher",
-      "pos": [350, 480],
+      "pos": [330, 480],
       "size": {"0": 280, "1": 82},
       "flags": {},
       "order": 4,
@@ -93,8 +97,8 @@
     {
       "id": 6,
       "type": "ShowText|pysssss",
-      "pos": [700, 100],
-      "size": {"0": 350, "1": 150},
+      "pos": [670, 100],
+      "size": {"0": 350, "1": 130},
       "flags": {},
       "order": 5,
       "mode": 0,
@@ -110,8 +114,8 @@
     {
       "id": 7,
       "type": "ShowText|pysssss",
-      "pos": [700, 430],
-      "size": {"0": 350, "1": 150},
+      "pos": [670, 430],
+      "size": {"0": 350, "1": 130},
       "flags": {},
       "order": 6,
       "mode": 0,
@@ -127,14 +131,14 @@
     {
       "id": 8,
       "type": "Note",
-      "pos": [700, 290],
-      "size": {"0": 350, "1": 120},
+      "pos": [670, 260],
+      "size": {"0": 350, "1": 150},
       "flags": {},
       "order": 7,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "THRESHOLD SELECTION\n\nChoose a value BETWEEN the two scores:\n- Above the 'different person' score\n- Below the 'same person' score\n\nExample: Same=0.75, Different=0.32 → Use 0.5-0.6"
+        "THRESHOLD SELECTION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nChoose a value BETWEEN the two scores:\n\nExample: Same=0.75, Different=0.32\n→ Use threshold: 0.5 to 0.6\n\nThe bigger the gap, the easier to tune!"
       ],
       "color": "#234",
       "bgcolor": "#345"
@@ -142,14 +146,14 @@
     {
       "id": 9,
       "type": "Note",
-      "pos": [50, 1040],
-      "size": {"0": 400, "1": 150},
+      "pos": [50, 1030],
+      "size": {"0": 500, "1": 150},
       "flags": {},
       "order": 8,
       "mode": 0,
       "properties": {},
       "widgets_values": [
-        "THRESHOLD GUIDELINES\n\n0.7+  = Very strict (may miss valid faces)\n0.5-0.6 = Good balance (recommended)\n0.4-0.5 = More inclusive (may get false positives)\n<0.4 = Too loose (will match wrong faces)\n\nTest with your specific footage!"
+        "THRESHOLD GUIDELINES\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n0.7+     Very strict - may miss valid faces\n0.55-0.65  ★ RECOMMENDED - good balance\n0.45-0.55  More inclusive - may get some false matches\n< 0.4    Too loose - will match wrong people"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -164,9 +168,9 @@
     [6, 5, 1, 7, 0, "STRING"]
   ],
   "groups": [
-    {"title": "Test Images", "bounding": [40, 0, 260, 1020], "color": "#3f789e"},
-    {"title": "Same Person Match", "bounding": [330, 100, 750, 170], "color": "#27ae60"},
-    {"title": "Different Person Match", "bounding": [330, 430, 750, 170], "color": "#c0392b"}
+    {"title": "Test Images", "bounding": [40, 0, 260, 1010], "color": "#3f789e"},
+    {"title": "Same Person Comparison", "bounding": [310, 100, 730, 150], "color": "#27ae60"},
+    {"title": "Different Person Comparison", "bounding": [310, 430, 730, 150], "color": "#c0392b"}
   ],
   "config": {},
   "extra": {},
