@@ -1,19 +1,22 @@
 """
-DFL Face Extractor for ComfyUI
-Version 3.0 - Memory-aware chunked processing
+Face Extractor for ComfyUI
+Version 4.0 - Generic Face Extraction Tool
 
-Automatically extracts faces from video/images matching a reference face.
-Designed for DeepFaceLab de-aging and face swap workflows.
+Features:
+- Memory-aware processing with GPU flush
+- Aspect ratio preservation
+- Multiple detection backends with different licenses
+- Commercial-friendly options available
 
-Key Features:
-- Built-in video loading (no VHS dependency needed for large videos)
-- Memory-aware chunked processing
-- Streaming mode for unlimited video length
-- GPU acceleration with automatic memory management
+LICENSE NOTICE:
+This tool supports multiple face detection backends with different licenses:
+- InsightFace: NON-COMMERCIAL USE ONLY (see insightface license)
+- MediaPipe: Apache 2.0 (Commercial OK)
+- OpenCV Cascade: BSD (Commercial OK)
+
+For commercial projects, use mediapipe or opencv_cascade backend!
 """
 
 from .nodes import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']
-
-WEB_DIRECTORY = "./js"

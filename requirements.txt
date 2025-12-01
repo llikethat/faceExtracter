@@ -1,10 +1,44 @@
-# DFL Face Extractor requirements
+# Face Extractor Requirements
+# ===========================
+
+# Core dependencies
 numpy>=1.20.0
 opencv-python>=4.5.0
 torch>=1.9.0
 Pillow>=8.0.0
-psutil>=5.8.0  # For memory monitoring
+psutil>=5.8.0
 
-# Face detection/recognition (recommended)
-insightface>=0.7.0
-onnxruntime-gpu>=1.10.0  # Use onnxruntime for CPU-only
+# =============================================================================
+# DETECTION BACKENDS - Choose based on your license requirements
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# OPTION 1: InsightFace (BEST QUALITY - NON-COMMERCIAL ONLY!)
+# -----------------------------------------------------------------------------
+# InsightFace provides the most accurate face detection and recognition.
+# However, it is licensed for NON-COMMERCIAL USE ONLY.
+# See: https://github.com/deepinsight/insightface#license
+#
+# To install:
+# pip install insightface onnxruntime-gpu
+#
+# For CPU only:
+# pip install insightface onnxruntime
+
+# -----------------------------------------------------------------------------
+# OPTION 2: MediaPipe (GOOD QUALITY - COMMERCIAL OK)
+# -----------------------------------------------------------------------------
+# MediaPipe is Google's ML solution, licensed under Apache 2.0.
+# Safe for commercial use. Good detection quality.
+#
+# To install:
+# pip install mediapipe
+mediapipe>=0.10.0
+
+# -----------------------------------------------------------------------------
+# OPTION 3: OpenCV Cascade (BASIC - COMMERCIAL OK)
+# -----------------------------------------------------------------------------
+# Built into OpenCV, no additional install needed.
+# Licensed under BSD. Safe for commercial use.
+# Lower accuracy than InsightFace/MediaPipe but always available.
+# (Already included in opencv-python)
