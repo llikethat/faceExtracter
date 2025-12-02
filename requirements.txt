@@ -24,7 +24,8 @@ psutil>=5.8.0
 #
 # For CPU only:
 # pip install insightface onnxruntime
-
+insightface>=0.7.3
+onnxruntime-gpu>=1.15.0
 # -----------------------------------------------------------------------------
 # OPTION 2: MediaPipe (GOOD QUALITY - COMMERCIAL OK)
 # -----------------------------------------------------------------------------
