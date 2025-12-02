@@ -54,7 +54,7 @@ If you need InsightFace quality for commercial work, contact InsightFace for a c
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/your-repo/comfyui_face_extractor.git
+git clone https://github.com/llikethat/ComfyUI_faceExtractor.git
 cd comfyui_face_extractor
 
 # For non-commercial use (best quality):
